@@ -127,7 +127,7 @@
   };
 
   # Install programs
-  programs.firefox.enable = true;
+  programs.firefox.enable = false;
   #programs.gh.enable = true;
   programs.thunar.enable = true;
   programs.neovim = {
@@ -146,12 +146,10 @@
   # List packages installed in system profile. To search, run:
 
   environment.systemPackages = with pkgs; [
-    anki
     testdisk-qt
     bibata-cursors
     blueman
     btop
-    brave
     brightnessctl
     cifs-utils
     cmatrix
@@ -160,7 +158,6 @@
     dconf
     ddcutil
     ddcui
-    discord
     droidcam 
     exfatprogs
     eyedropper
@@ -195,9 +192,13 @@
     kittysay
     libnotify
     libreoffice-still
+    libqmi
+    libmbim
     lua
     luajitPackages.luarocks
     microsoft-edge
+    mpi
+    modemmanager
     neovim
     ntfs3g
     nix
@@ -210,6 +211,7 @@
     pamixer
     papirus-icon-theme
     parted
+    pciutils
     pdfarranger
     phinger-cursors
     playerctl
@@ -219,7 +221,6 @@
     remmina
     ripgrep
     ripgrep-all
-    rofi-wayland
     samba
     scrcpy
     #slack
@@ -228,7 +229,6 @@
     solaar
     stow
     #steam-run
-    spotify
     starship
     sticky
     stow
@@ -237,7 +237,6 @@
     swayidle
     swaylock-effects
     tealdeer
-    telegram-desktop
     texliveFull
     texstudio
     thunderbird
