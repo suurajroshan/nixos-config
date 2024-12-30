@@ -17,6 +17,7 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.devices = [ "nodev" ] ;
   boot.loader.grub.efiSupport = true;	
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   systemd.services.NetworkManager-wait-online.enable = false;
