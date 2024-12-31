@@ -137,6 +137,7 @@
   	enable = true;
 	defaultEditor = true;
   };
+
   #  programs.steam = {
   #  	enable = true;
   #	remotePlay.openFirewall = true;
