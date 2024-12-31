@@ -64,6 +64,8 @@
     displayManager.gdm.enable = true;
   };
 
+  services.usbmuxd.enable = true;
+
   services.power-profiles-daemon.enable = false;
 
 
@@ -192,6 +194,7 @@
     kitty
     kittysay
     libnotify
+    libimobiledevice
     libreoffice-still
     libqmi
     libmbim
