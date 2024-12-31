@@ -227,6 +227,7 @@
     remmina
     ripgrep
     ripgrep-all
+    rofi
     samba
     scrcpy
     #slack
