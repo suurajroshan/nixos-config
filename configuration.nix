@@ -137,6 +137,7 @@
   	enable = true;
 	defaultEditor = true;
   };
+  programs.ssh.startAgent = true;
 
   #  programs.steam = {
   #  	enable = true;
