@@ -161,6 +161,7 @@
     dconf
     ddcutil
     ddcui
+    discord
     droidcam 
     exfatprogs
     eyedropper
@@ -193,6 +194,7 @@
     jabref
     kitty
     kittysay
+    keepassxc
     libnotify
     libimobiledevice
     libreoffice-still
