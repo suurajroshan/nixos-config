@@ -21,6 +21,7 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   systemd.services.NetworkManager-wait-online.enable = false;
+  
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -64,10 +65,11 @@
     displayManager.gdm.enable = true;
   };
 
+  systemd.services.ModemManager.enable = true;
+
   services.usbmuxd.enable = true;
 
   services.power-profiles-daemon.enable = false;
-
 
   services.displayManager = { 
     #  sessionPackages = [ pkgs.gnome.gnome-session.sessions ];
@@ -193,6 +195,7 @@
     hyprpaper
     hyprpicker
     hyprshot
+    ifuse
     jabref
     kitty
     kittysay
@@ -251,6 +254,7 @@
     thunderbird
     trash-cli
     tree
+    usbutils
     unzip
     vivaldi
     vivaldi-ffmpeg-codecs
@@ -262,6 +266,7 @@
     whatsapp-for-linux
     wl-clipboard
     wl-color-picker
+    wlsunset
     wsdd
     xclip
     xdg-utils
@@ -347,7 +352,6 @@ nixpkgs = {
     enable = true;
     openFirewall = true;
   };
-
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
