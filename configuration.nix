@@ -177,6 +177,7 @@
     fzf
     gcc
     geany
+    gh
     git
     github-desktop
     gparted
@@ -187,6 +188,7 @@
     grim
     gvfs
     gnome.gvfs
+    haveged
     hfsprogs
     htop
     hypridle
@@ -205,6 +207,7 @@
     libreoffice-still
     libqmi
     libmbim
+    linux-wifi-hotspot
     lua
     luajitPackages.luarocks
     microsoft-edge
