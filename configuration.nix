@@ -265,6 +265,7 @@
     vlc
     vscode
     waybar
+    wineWowPackages.stable
     wget
     whatsapp-for-linux
     wl-clipboard
