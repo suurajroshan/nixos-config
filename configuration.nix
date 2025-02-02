@@ -9,6 +9,7 @@
       ./hardware-configuration.nix
       ./fonts.nix
       ./pipewire.nix
+      ./vm.nix
     ];
 
   # Bootloader.
@@ -265,7 +266,6 @@
     vlc
     vscode
     waybar
-    wineWowPackages.stable
     wget
     whatsapp-for-linux
     wl-clipboard
