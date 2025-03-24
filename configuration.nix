@@ -1,4 +1,4 @@
-# Use your harware-configuration.nix
+#Use your harware-configuration.nix
 
 
 { config, pkgs, ... }:
@@ -40,7 +40,7 @@
   time.timeZone = "Europe/Berlin";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "en_GB.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
@@ -170,6 +170,7 @@
     droidcam 
     exfatprogs
     eyedropper
+    eza
     fastfetch
     feh
     ffmpeg-full
@@ -197,8 +198,10 @@
     hyprlock
     hyprpaper
     hyprpicker
+    hyprshade
     hyprshot
     ifuse
+    iw
     jabref
     kitty
     kittysay
@@ -239,7 +242,7 @@
     rofi
     samba
     scrcpy
-    #slack
+    slack
     sl
     slurp
     solaar
@@ -257,7 +260,7 @@
     texstudio
     thunderbird
     trash-cli
-    tree
+    tre
     usbutils
     unzip
     vivaldi
@@ -269,14 +272,14 @@
     wget
     whatsapp-for-linux
     wl-clipboard
-    wl-color-picker
-    wlsunset
+    wl-color-picker    
     wsdd
     xclip
     xdg-utils
     xournalpp
     yazi
     zathura
+    zip
     zoom-us
     zotero
     zoxide
