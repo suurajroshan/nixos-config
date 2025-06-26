@@ -82,14 +82,13 @@
   
   # Virtualisation
   virtualisation.virtualbox.host.enable = true;
-  virtualisation.libvirtd.enable = true;
-   
-  boot.kernelModules = [ "kvm-amd" "kvm-intel"]; # "i2c-dev" "ddcci_backlight"];
+  virtualisation.libvirtd.enable = true; 
 
   services.udev.extraRules = ''
       KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
   '';
 
+  boot.kernelModules = [ "kvm-intel" ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -168,7 +167,6 @@
     ddcutil
     ddcui
     discord
-    droidcam 
     exfatprogs
     eyedropper
     eza
@@ -222,6 +220,7 @@
     ntfs3g
     nix
     nwg-look
+    obs-studio
     obsidian
     kdePackages.okular
     openconnect
