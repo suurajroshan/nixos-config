@@ -29,6 +29,7 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   networking.nameservers = [ "1.1.1.1" "8.8.8.8"];
+
   # Enable networking
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
@@ -37,7 +38,7 @@
   hardware.i2c.enable = true;
 
 # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+  time.timeZone = "Asia/Calcutta";#"Europe/Berlin";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -78,13 +79,13 @@
   };
   # Kernel modules load
   # boot.extraModulePackages = [ config.boot.kernelModules.ddcci-driver ];
+  
+  # Virtualisation
   virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true;
-  boot.kernelModules = [ "kvm-amd" "kvm-intel" "v4l2loopback"]; # "i2c-dev" "ddcci_backlight"];
-  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
-  boot.extraModprobeConfig = ''
-    options v4l2loopback exclusive_caps=1 card_label="Virtual Webcam"
-  '';
+   
+  boot.kernelModules = [ "kvm-amd" "kvm-intel"]; # "i2c-dev" "ddcci_backlight"];
+
   services.udev.extraRules = ''
       KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
   '';
@@ -141,7 +142,6 @@
 	defaultEditor = true;
   };
   programs.ssh.startAgent = true;
-
   #  programs.steam = {
   #  	enable = true;
   #	remotePlay.openFirewall = true;
@@ -152,6 +152,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
+
 
   environment.systemPackages = with pkgs; [
     testdisk-qt
@@ -202,7 +203,7 @@
     hyprshot
     ifuse
     iw
-    jabref
+    jabref 
     kitty
     kittysay
     keepassxc
@@ -221,7 +222,6 @@
     ntfs3g
     nix
     nwg-look
-    obs-studio
     obsidian
     kdePackages.okular
     openconnect
@@ -235,6 +235,7 @@
     playerctl
     python3
     qalculate-gtk
+    qimgv
     rdesktop
     remmina
     ripgrep
