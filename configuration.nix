@@ -1,4 +1,4 @@
-#Use your harware-configuration.nix
+#DUse your harware-configuration.nix
 
 
 { config, pkgs, ... }:
@@ -6,6 +6,7 @@
 {
   imports =
     [
+      ./modules/openrgb.nix
       ./hardware-configuration.nix
       ./fonts.nix
       ./pipewire.nix
@@ -38,7 +39,7 @@
   hardware.i2c.enable = true;
 
 # Set your time zone.
-  time.timeZone = "Asia/Calcutta";#"Europe/Berlin";
+  time.timeZone = "Europe/Berlin";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -83,21 +84,50 @@
   # Virtualisation
   virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true; 
-
-  services.udev.extraRules = ''
-      KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+  boot.kernelModules = [ "kvm-intel" ];
+  #  boot.extraModprobeConfig = ''
+  #  options usbhid quirks=0x03f0:0x1441:0x00000000
+  #'';
+  #boot.blacklistedKernelModules = [ "hid_hp" ];
+  services.udev.extraRules = ''                                                                                                                                                      
+        KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"                                                                                                                                 
+  #      SUBSYSTEM=="usb", ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="1441", ATTR{bInterfaceClass}=="03", RUN+="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/usbhid/bind'"          
   '';
 
-  boot.kernelModules = [ "kvm-intel" ];
-
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "gb";
+    layout = "ch";
     variant = "";
   };
   
   services.samba = {
+    package = pkgs.samba4Full;
+        # ^^ `samba4Full` is compiled with avahi, ldap, AD etc support (compared to the default package, `samba`
+        # Required for samba to register mDNS records for auto discovery 
+        # See https://github.com/NixOS/nixpkgs/blob/592047fc9e4f7b74a4dc85d1b9f5243dfe4899e3/pkgs/top-level/all-packages.nix#L27268
     enable = true;
+    openFirewall = true;
+    settings.testshare = {
+      path = "/path/to/share";
+      writable = "true";
+      comment = "Hello World!";
+    };
+    settings.global.extraConfig = ''
+          server smb encrypt = required
+          # ^^ Note: Breaks `smbclient -L <ip/host> -U%` by default, might require the client to set `client min protocol`?
+          server min protocol = SMB3_00
+        '';
+  };
+
+  services.avahi = {
+    publish.enable = true;
+    publish.userServices = true;
+    # ^^ Needed to allow samba to automatically register mDNS records (without the need for an `extraServiceFile`
+    nssmdns4 = true;
+    # ^^ Not one hundred percent sure if this is needed- if it aint broke, don't fix it
+	  enable = true;
+    openFirewall = true;
   };
 
   services.samba-wsdd = {
@@ -157,9 +187,12 @@
     testdisk-qt
     bibata-cursors
     blueman
+    brave
     btop
     brightnessctl
     cifs-utils
+    chromium 
+    chromedriver
     cmatrix
     conda
     cowsay
@@ -173,6 +206,7 @@
     fastfetch
     feh
     ffmpeg-full
+    firefox
     freerdp3
     fswebcam
     fzf
@@ -202,6 +236,7 @@
     ifuse
     iw
     jabref 
+    killall
     kitty
     kittysay
     keepassxc
@@ -211,8 +246,10 @@
     libqmi
     libmbim
     linux-wifi-hotspot
+    lsof
     lua
     luajitPackages.luarocks
+    macchanger
     microsoft-edge
     mpi
     modemmanager
@@ -224,7 +261,6 @@
     obsidian
     kdePackages.okular
     openconnect
-    # openssl_3_3
     pamixer
     papirus-icon-theme
     parted
@@ -233,13 +269,14 @@
     phinger-cursors
     playerctl
     python3
+    python312Packages.smbprotocol
     qalculate-gtk
     qimgv
     rdesktop
     remmina
     ripgrep
     ripgrep-all
-    rofi
+    rofi-wayland
     samba
     scrcpy
     slack
@@ -247,7 +284,6 @@
     slurp
     solaar
     stow
-    #steam-run
     starship
     sticky
     stow
