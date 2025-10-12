@@ -6,7 +6,7 @@
 {
   imports =
     [
-      #      ./modules/openrgb.nix
+      ./modules/users.nix
       ./hardware-configuration.nix
       ./fonts.nix
       ./pipewire.nix
@@ -148,19 +148,19 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.suuper = {
-    isNormalUser = true;
-    description = "suuper";
-    extraGroups = [ "adbusers" "sambashare" "networkmanager" "i2c" "wheel" "input" "libvirtd" "vboxusers" "qemu-libvirtd" "video" "audio" "disk" ];
-    packages = with pkgs; [
-    arc-theme
-    arc-kde-theme
-    graphite-gtk-theme
-    graphite-kde-theme
-    orchis-theme
-    yaru-theme
-    ];
-  };
+  # users.users.suuper = {
+  #   isNormalUser = true;
+  #   description = "suuper";
+  #   extraGroups = [ "adbusers" "sambashare" "networkmanager" "i2c" "wheel" "input" "libvirtd" "vboxusers" "qemu-libvirtd" "video" "audio" "disk" ];
+  #   packages = with pkgs; [
+  #     arc-theme
+  #     arc-kde-theme
+  #     graphite-gtk-theme
+  #     graphite-kde-theme
+  #     orchis-theme
+  #     yaru-theme
+  #   ];
+  # };
 
   # Install programs
   programs.firefox.enable = false;
@@ -206,7 +206,6 @@
     eyedropper
     eza
     fastfetch
-    feh
     ffmpeg-full
     firefox
     freerdp3
@@ -274,7 +273,6 @@
     pdfarranger
     phinger-cursors
     playerctl
-    pyenv
     python3
     python312Packages.smbprotocol
     qalculate-gtk
@@ -320,15 +318,9 @@
     wsdd
     xclip
     xdg-utils
-    xournalpp
-    yazi
-    zathura
     zip
-    zlib
     zoom-us
     zotero
-    zoxide
-    # Install a package from unstable
   ];
 
   fileSystems."/mnt/share" = {
