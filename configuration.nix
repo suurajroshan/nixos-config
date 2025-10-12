@@ -200,6 +200,7 @@
     ddcutil
     ddcui
     discord
+    docker
     exfatprogs
     eyedropper
     eza
