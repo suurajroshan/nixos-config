@@ -6,7 +6,7 @@
 {
   imports =
     [
-      ./modules/openrgb.nix
+      #      ./modules/openrgb.nix
       ./hardware-configuration.nix
       ./fonts.nix
       ./pipewire.nix
@@ -88,7 +88,7 @@
   #  boot.extraModprobeConfig = ''
   #  options usbhid quirks=0x03f0:0x1441:0x00000000
   #'';
-  #boot.blacklistedKernelModules = [ "hid_hp" ];
+
   services.udev.extraRules = ''                                                                                                                                                      
         KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"                                                                                                                                 
   #      SUBSYSTEM=="usb", ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="1441", ATTR{bInterfaceClass}=="03", RUN+="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/usbhid/bind'"          
@@ -189,6 +189,7 @@
     blueman
     brave
     btop
+    bzip2
     brightnessctl
     cifs-utils
     chromium 
@@ -221,6 +222,7 @@
     gnome-control-center
     nautilus
     gnugrep
+    gnumake
     grim
     gvfs
     gnome.gvfs
@@ -244,6 +246,7 @@
     libnotify
     libimobiledevice
     libreoffice-still
+    libffi
     libqmi
     libmbim
     linux-wifi-hotspot
@@ -254,6 +257,7 @@
     microsoft-edge
     mpi
     modemmanager
+    ncurses
     neovim
     ntfs3g
     nix
@@ -262,6 +266,7 @@
     obsidian
     kdePackages.okular
     openconnect
+    openssl
     pamixer
     papirus-icon-theme
     parted
@@ -269,11 +274,13 @@
     pdfarranger
     phinger-cursors
     playerctl
+    pyenv
     python3
     python312Packages.smbprotocol
     qalculate-gtk
     qimgv
     rdesktop
+    readline
     remmina
     ripgrep
     ripgrep-all
@@ -317,6 +324,7 @@
     yazi
     zathura
     zip
+    zlib
     zoom-us
     zotero
     zoxide
