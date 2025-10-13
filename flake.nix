@@ -9,19 +9,29 @@
     nixpkgsUnstable.url = "nixpkgs/nixos-unstable";
   };
   
-  outputs = { self, nixpkgsStable, nixpkgsUnstable,... } @ inputs:
+  outputs = 
+  { self, nixpkgsStable, nixpkgsUnstable,... } @ inputs:
     let
       lib = nixpkgsStable.lib; # It is like pass nixpkgs to this var
       system = "x86_64-linux";
       #lib-un = inputs.nixpkgUnstable.lib;
       pkgs = nixpkgsStable.legacyPackages.${system};
       pkgsUnstable = nixpkgsUnstable.legacyPackages.${system};
+
     in {
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system;        
-	  modules = [ ./configuration.nix ];
+      modules = [
+
+        ./configuration.nix
+
+        ];
+      specialArgs = {
+        inherit pkgsUnstable;
         };
+
+      };
     };
   };
 

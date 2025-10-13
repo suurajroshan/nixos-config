@@ -1,11 +1,12 @@
 #DUse your harware-configuration.nix
 
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgsUnstable, ... }:
 
 {
   imports =
     [
+      #      ./modules/openrgb.nix
       ./modules/users.nix
       ./hardware-configuration.nix
       ./fonts.nix
@@ -34,7 +35,7 @@
   # Enable networking
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   # Enable i2c
   hardware.i2c.enable = true;
 
@@ -147,6 +148,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  services.flatpak.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.users.suuper = {
   #   isNormalUser = true;
@@ -180,6 +182,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  services.hardware.openrgb.enable=true;
   # List packages installed in system profile. To search, run:
 
 
@@ -211,7 +214,6 @@
     freerdp3
     fswebcam
     fzf
-    gcc
     geany
     gh
     git
@@ -221,7 +223,6 @@
     gnome-control-center
     nautilus
     gnugrep
-    gnumake
     grim
     gvfs
     gnome.gvfs
@@ -321,6 +322,13 @@
     zip
     zoom-us
     zotero
+
+      # -- c / c++
+    gcc
+    libgcc
+    gnumake
+    cmake
+    extra-cmake-modules
   ];
 
   fileSystems."/mnt/share" = {
