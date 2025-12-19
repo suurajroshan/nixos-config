@@ -14,6 +14,7 @@
       ./vm.nix
     ];
 
+  home-manager.users.suuper = import ./home.nix;
   # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
@@ -33,7 +34,20 @@
   networking.nameservers = [ "1.1.1.1" "8.8.8.8"];
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+};
+  networking.networkmanager.plugins = with pkgsUnstable; [ 
+    networkmanager-openvpn
+  ];
+
+  # eduVPN settings
+  networking.firewall = {
+    allowedUDPPorts = [ 51820 ];
+    checkReversePath = "loose";
+  };
+
+
   hardware.bluetooth.enable = true;
   services.pulseaudio.enable = false;
   # Enable i2c
@@ -89,6 +103,9 @@
   #  boot.extraModprobeConfig = ''
   #  options usbhid quirks=0x03f0:0x1441:0x00000000
   #'';
+  virtualisation.docker = {
+    enable = true;
+  };
 
   services.udev.extraRules = ''                                                                                                                                                      
         KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"                                                                                                                                 
@@ -96,9 +113,10 @@
   '';
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "ch";
+    layout = "gb";
     variant = "";
   };
   
@@ -182,7 +200,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  services.hardware.openrgb.enable=true;
   # List packages installed in system profile. To search, run:
 
 
@@ -190,6 +207,7 @@
     testdisk-qt
     bibata-cursors
     blueman
+    bundler
     brave
     btop
     bzip2
@@ -205,6 +223,7 @@
     ddcui
     discord
     docker
+    eduvpn-client
     exfatprogs
     eyedropper
     eza
@@ -237,6 +256,7 @@
     hyprshade
     hyprshot
     ifuse
+    inkscape-with-extensions
     iw
     jabref 
     killall
@@ -267,6 +287,7 @@
     kdePackages.okular
     openconnect
     openssl
+    p7zip
     pamixer
     papirus-icon-theme
     parted
@@ -284,6 +305,7 @@
     ripgrep
     ripgrep-all
     rofi-wayland
+    ruby
     samba
     scrcpy
     slack
@@ -300,6 +322,7 @@
     swaylock-effects
     tealdeer
     texliveFull
+    texlivePackages.latexindent
     texstudio
     thunderbird
     trash-cli
@@ -313,6 +336,7 @@
     vscode
     waybar
     wget
+    wireguard-tools
     whatsapp-for-linux
     wl-clipboard
     wl-color-picker    
