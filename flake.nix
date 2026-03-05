@@ -1,16 +1,21 @@
 {
 
-  description = "Trying out flake!";
-  
   inputs = {
-    nixpkgsStable.url = "nixpkgs/nixos-25.05";
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgsStable"; # looks for same version of packages
+    nixpkgsStable.url = "nixpkgs/nixos-25.11";
     nixpkgsUnstable.url = "nixpkgs/nixos-unstable";
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgsStable";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgsUnstable";
+    };
   };
   
   outputs = 
-  { self, nixpkgsStable, nixpkgsUnstable, home-manager,... } @ inputs:
+  { self, nixpkgsStable, nixpkgsUnstable, zen-browser, ... } @ inputs:
     let
       lib = nixpkgsStable.lib; # It is like pass nixpkgs to this var
       system = "x86_64-linux";
@@ -26,14 +31,13 @@
 
         ./configuration.nix
 
-        home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.suuper = import ./home.nix;
-        }
+        { environment.systemPackages = [ inputs.zen-browser.packages.${system}.default ]; }
+
         ];
       specialArgs = {
         inherit username;
         inherit pkgsUnstable;
+        inherit inputs;
         };
 
       };

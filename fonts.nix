@@ -63,7 +63,7 @@
       google-fonts
       work-sans
       corefonts
-      vistafonts
+      vista-fonts
       comic-neue
       source-sans
       twemoji-color-font
@@ -78,7 +78,7 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       jetbrains-mono
       font-awesome_5
     #  (nerdfonts.override {fonts = ["JetBrainsMono"];})

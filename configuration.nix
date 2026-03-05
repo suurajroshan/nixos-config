@@ -11,10 +11,10 @@
       ./hardware-configuration.nix
       ./fonts.nix
       ./pipewire.nix
+      ./modules/packages.nix
       ./vm.nix
     ];
 
-  home-manager.users.suuper = import ./home.nix;
   # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
@@ -77,11 +77,9 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Enable the GNOME Desktop Environment.
-  services.xserver = {
-    enable = true;
-    desktopManager.gnome.enable = true; # Disable full GNOME
-    displayManager.gdm.enable = true;
-  };
+  services.xserver.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
 
   systemd.services.ModemManager.enable = true;
 
@@ -97,8 +95,6 @@
   # boot.extraModulePackages = [ config.boot.kernelModules.ddcci-driver ];
   
   # Virtualisation
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.libvirtd.enable = true; 
   boot.kernelModules = [ "kvm-intel" ];
   #  boot.extraModprobeConfig = ''
   #  options usbhid quirks=0x03f0:0x1441:0x00000000
@@ -163,26 +159,7 @@
   # Enable adb 
   programs.adb.enable = true;  
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   services.flatpak.enable = true;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.suuper = {
-  #   isNormalUser = true;
-  #   description = "suuper";
-  #   extraGroups = [ "adbusers" "sambashare" "networkmanager" "i2c" "wheel" "input" "libvirtd" "vboxusers" "qemu-libvirtd" "video" "audio" "disk" ];
-  #   packages = with pkgs; [
-  #     arc-theme
-  #     arc-kde-theme
-  #     graphite-gtk-theme
-  #     graphite-kde-theme
-  #     orchis-theme
-  #     yaru-theme
-  #   ];
-  # };
-
-  # Install programs
   programs.firefox.enable = false;
   #programs.gh.enable = true;
   programs.thunar.enable = true;
@@ -190,170 +167,11 @@
   	enable = true;
 	defaultEditor = true;
   };
-  programs.ssh.startAgent = true;
-  #  programs.steam = {
-  #  	enable = true;
-  #	remotePlay.openFirewall = true;
-  #	dedicatedServer.openFirewall = true;
-  #  };
+  programs.ssh.startAgent = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-
-
-  environment.systemPackages = with pkgs; [
-    testdisk-qt
-    bibata-cursors
-    blueman
-    bundler
-    brave
-    btop
-    bzip2
-    brightnessctl
-    cifs-utils
-    chromium 
-    chromedriver
-    cmatrix
-    conda
-    cowsay
-    dconf
-    ddcutil
-    ddcui
-    discord
-    docker
-    eduvpn-client
-    exfatprogs
-    eyedropper
-    eza
-    fastfetch
-    ffmpeg-full
-    firefox
-    freerdp3
-    fswebcam
-    fzf
-    geany
-    gh
-    git
-    github-desktop
-    gparted
-    gnome-boxes
-    gnome-control-center
-    nautilus
-    gnugrep
-    grim
-    gvfs
-    gnome.gvfs
-    haveged
-    hfsprogs
-    htop
-    hypridle
-    hyprland
-    hyprlock
-    hyprpaper
-    hyprpicker
-    hyprshade
-    hyprshot
-    ifuse
-    inkscape-with-extensions
-    iw
-    jabref 
-    killall
-    kitty
-    kittysay
-    keepassxc
-    libnotify
-    libimobiledevice
-    libreoffice-still
-    libffi
-    libqmi
-    libmbim
-    linux-wifi-hotspot
-    lsof
-    lua
-    luajitPackages.luarocks
-    macchanger
-    microsoft-edge
-    mpi
-    modemmanager
-    ncurses
-    neovim
-    ntfs3g
-    nix
-    nwg-look
-    obs-studio
-    obsidian
-    kdePackages.okular
-    openconnect
-    openssl
-    p7zip
-    pamixer
-    papirus-icon-theme
-    parted
-    pciutils
-    pdfarranger
-    phinger-cursors
-    playerctl
-    python3
-    python312Packages.smbprotocol
-    qalculate-gtk
-    qimgv
-    rdesktop
-    readline
-    remmina
-    ripgrep
-    ripgrep-all
-    rofi-wayland
-    ruby
-    samba
-    scrcpy
-    slack
-    sl
-    slurp
-    solaar
-    stow
-    starship
-    sticky
-    stow
-    #sublime4
-    swaynotificationcenter
-    swayidle
-    swaylock-effects
-    tealdeer
-    texliveFull
-    texlivePackages.latexindent
-    texstudio
-    thunderbird
-    trash-cli
-    tre
-    usbutils
-    unzip
-    vivaldi
-    vivaldi-ffmpeg-codecs
-    virtualbox
-    vlc
-    vscode
-    waybar
-    wget
-    wireguard-tools
-    whatsapp-for-linux
-    wl-clipboard
-    wl-color-picker    
-    wsdd
-    xclip
-    xdg-utils
-    zip
-    zoom-us
-    zotero
-
-      # -- c / c++
-    gcc
-    libgcc
-    gnumake
-    cmake
-    extra-cmake-modules
-  ];
 
   fileSystems."/mnt/share" = {
     device = "//131.188.251.29";
@@ -369,8 +187,6 @@
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal
-      #xdg-desktop-portal-gtk
-      #xdg-desktop-portal-wlr
       xdg-desktop-portal-hyprland
     ];
   }; 
@@ -381,10 +197,8 @@
   services.tlp = {
     enable = true;
     settings = {
-      START_CHARGE_THRESH_BAT0 = "60";
+      START_CHARGE_THRESH_BAT0 = "75";
       STOP_CHARGE_THRESH_BAT0 = "80";
-      START_CHARGE_THRESH_BAT1 = "60";
-      STOP_CHARGE_THRESH_BAT1 = "80";
 
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -415,27 +229,14 @@ nixpkgs = {
   ];
 };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
   # List services that you want to enable:
   services.xrdp = {
     enable = true;
     openFirewall = true;
   };
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 3389 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = true;
   networking.firewall.allowPing = true;
 
@@ -445,7 +246,7 @@ nixpkgs = {
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
   # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Channels to flakes
