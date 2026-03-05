@@ -99,6 +99,10 @@
   #  boot.extraModprobeConfig = ''
   #  options usbhid quirks=0x03f0:0x1441:0x00000000
   #'';
+swapDevices = [{
+  device = "/var/lib/swapfile";
+  size = 16*1024; # 16 GB
+}];
   virtualisation.docker = {
     enable = true;
   };
