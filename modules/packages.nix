@@ -125,9 +125,6 @@ environment.systemPackages =
     sticky
     stow
     #sublime4
-    swaynotificationcenter
-    swayidle
-    swaylock-effects
     tealdeer
     tex-fmt
     texliveFull
