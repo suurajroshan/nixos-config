@@ -58,10 +58,8 @@ environment.systemPackages =
     htop
     hypridle
     hyprland
-    hyprlock
     hyprpaper
     hyprpicker
-    hyprshade
     hyprshot
     ifuse
     inkscape-with-extensions
@@ -102,6 +100,7 @@ environment.systemPackages =
     pdfarranger
     phinger-cursors
     playerctl
+    pavucontrol
     python3
     python3Packages.dbus-python
     python312Packages.smbprotocol
