@@ -6,11 +6,10 @@
 {
   imports =
     [
-      #      ./modules/openrgb.nix
       ./modules/users.nix
-      .hosts/suuper/hardware-configuration.nix
+      ./hosts/suuper/hardware-configuration.nix
       ./fonts.nix
-      .hosts/suuper/pipewire.nix
+      ./hosts/suuper/pipewire.nix
       ./modules/packages.nix
       ./vm.nix
     ];
