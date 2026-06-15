@@ -8,9 +8,9 @@
     [
       #      ./modules/openrgb.nix
       ./modules/users.nix
-      ./hardware-configuration.nix
+      .hosts/suuper/hardware-configuration.nix
       ./fonts.nix
-      ./pipewire.nix
+      .hosts/suuper/pipewire.nix
       ./modules/packages.nix
       ./vm.nix
     ];
