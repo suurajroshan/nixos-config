@@ -159,9 +159,6 @@ swapDevices = [{
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable adb 
-  programs.adb.enable = true;  
-
   services.flatpak.enable = true;
   programs.firefox.enable = false;
   #programs.gh.enable = true;

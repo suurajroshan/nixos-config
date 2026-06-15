@@ -1,7 +1,7 @@
 {
 
   inputs = {
-    nixpkgsStable.url = "nixpkgs/nixos-25.11";
+    nixpkgsStable.url = "nixpkgs/nixos-26.05";
     nixpkgsUnstable.url = "nixpkgs/nixos-unstable";
 
     zen-browser = {

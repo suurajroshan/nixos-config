@@ -8,7 +8,6 @@ environment.systemPackages =
 ++
  
     ( with pkgs; [
-    testdisk-qt
     bash
     bat
     bibata-cursors
@@ -142,7 +141,6 @@ environment.systemPackages =
     waybar
     wget
     wireguard-tools
-    wasistlos 
     wl-clipboard
     wl-color-picker    
     wsdd
@@ -158,6 +156,5 @@ environment.systemPackages =
     libgcc
     gnumake
     cmake
-    extra-cmake-modules
   ]);
 }
