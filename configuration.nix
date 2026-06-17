@@ -19,12 +19,12 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.devices = [ "nodev" ] ;
-  boot.loader.grub.efiSupport = true;	
+  boot.loader.grub.efiSupport = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   systemd.services.NetworkManager-wait-online.enable = false;
-  
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -36,7 +36,7 @@
   networking.networkmanager = {
     enable = true;
 };
-  networking.networkmanager.plugins = with pkgsUnstable; [ 
+  networking.networkmanager.plugins = with pkgsUnstable; [
     networkmanager-openvpn
   ];
 
@@ -78,21 +78,41 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.enable = true;
   services.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
+  services.displayManager.gdm.enable = false;
 
+  services = {
+    greetd = {
+      enable = true;
+      settings = {
+
+      #  initial_session = {
+          # Change "Hyprland" to the command to run your window manager.
+      #    command = "niri";
+      #    user = "suuper";
+      #  };
+
+        default_session = {
+          # Again here just change "-cmd Hyprland" to "-cmd your-start-command".
+          command = "${pkgs.tuigreet}/bin/tuigreet --asterisks --remember --remember-user-session --time --cmd niri";
+          # DO NOT CHANGE THIS USER
+          user = "greeter";
+        };
+      };
+    };
+  };
   systemd.services.ModemManager.enable = true;
 
   services.usbmuxd.enable = true;
 
   services.power-profiles-daemon.enable = false;
 
-  services.displayManager = { 
+  services.displayManager = {
     #  sessionPackages = [ pkgs.gnome.gnome-session.sessions ];
   #  sddm.enable = true;
   };
   # Kernel modules load
   # boot.extraModulePackages = [ config.boot.kernelModules.ddcci-driver ];
-  
+
   # Virtualisation
   boot.kernelModules = [ "kvm-intel" ];
   #  boot.extraModprobeConfig = ''
@@ -106,9 +126,9 @@ swapDevices = [{
     enable = true;
   };
 
-  services.udev.extraRules = ''                                                                                                                                                      
-        KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"                                                                                                                                 
-  #      SUBSYSTEM=="usb", ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="1441", ATTR{bInterfaceClass}=="03", RUN+="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/usbhid/bind'"          
+  services.udev.extraRules = ''
+        KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+  #      SUBSYSTEM=="usb", ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="1441", ATTR{bInterfaceClass}=="03", RUN+="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/usbhid/bind'"
   '';
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -118,11 +138,11 @@ swapDevices = [{
     layout = "gb";
     variant = "";
   };
-  
+
   services.samba = {
     package = pkgs.samba4Full;
         # ^^ `samba4Full` is compiled with avahi, ldap, AD etc support (compared to the default package, `samba`
-        # Required for samba to register mDNS records for auto discovery 
+        # Required for samba to register mDNS records for auto discovery
         # See https://github.com/NixOS/nixpkgs/blob/592047fc9e4f7b74a4dc85d1b9f5243dfe4899e3/pkgs/top-level/all-packages.nix#L27268
     enable = true;
     openFirewall = true;
@@ -189,7 +209,7 @@ swapDevices = [{
       xdg-desktop-portal
       xdg-desktop-portal-hyprland
     ];
-  }; 
+  };
   # Enable automatic garbage collection
   nix.gc.automatic = true;
   nix.gc.dates = "weekly";  # Runs garbage collection weekly
@@ -202,7 +222,7 @@ swapDevices = [{
 
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      
+
       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 

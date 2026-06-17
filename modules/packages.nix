@@ -4,10 +4,16 @@ environment.systemPackages =
 (with pkgsUnstable; [
   quickshell
   inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-]) 
+])
 ++
- 
+
     ( with pkgs; [
+    dms-shell
+    tree
+    niri
+    xwayland-satellite # needed for niri
+    fuzzel
+    alacritty
     bash
     bat
     bibata-cursors
@@ -18,7 +24,7 @@ environment.systemPackages =
     bzip2
     brightnessctl
     cifs-utils
-    chromium 
+    chromium
     chromedriver
     cmatrix
     conda
@@ -65,7 +71,6 @@ environment.systemPackages =
     iw
     killall
     kitty
-    kittysay
     keepassxc
     libnotify
     libimobiledevice
@@ -86,7 +91,6 @@ environment.systemPackages =
     ntfs3g
     nix
     nwg-look
-    obs-studio
     obsidian
     kdePackages.okular
     openconnect
@@ -115,7 +119,6 @@ environment.systemPackages =
     samba
     scrcpy
     slack
-    sl
     slurp
     solaar
     stow
@@ -124,10 +127,6 @@ environment.systemPackages =
     stow
     #sublime4
     tealdeer
-    tex-fmt
-    texliveFull
-    texlivePackages.latexindent
-    texstudio
     thunderbird
     trash-cli
     tre
@@ -142,10 +141,11 @@ environment.systemPackages =
     wget
     wireguard-tools
     wl-clipboard
-    wl-color-picker    
+    wl-color-picker
     wsdd
     xclip
     xdg-utils
+    zed-editor
     zip
     zoom-us
     zotero

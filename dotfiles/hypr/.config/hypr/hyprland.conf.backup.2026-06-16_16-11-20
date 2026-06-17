@@ -4,10 +4,9 @@
 
 # See https://wiki.hyprland.org/Configuring/Monitors/
 #monitor = ,preferred,auto,1.25 #Uncomment this for quick fix
-monitor = eDP-1, 1920x1080, 1920x0, 1
+monitor = eDP-1, 1920x1080, 0x0, 1
 monitor = DP-1, 1920x1080, auto, 1
 monitor = DP-2, 1920x1080, auto, 1
-monitor = DP-4, 0x1080, 0x0, 1
 monitor = HDMI-A-2, 1920x1080, 0x0, 1, mirror, eDP-1
 
 ###################
@@ -130,7 +129,6 @@ animations {
 
 # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
 dwindle {
-    pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # You probably want this
 }
 
@@ -200,8 +198,6 @@ bind = $mainMod, E, exec, $fileManager
 bind = $mainMod, V, togglefloating,
 bind = $mainMod, F, fullscreen,
 bind = $mainMod, Space, exec, $menu
-bind = $mainMod, P, pseudo, # dwindle
-bind = $mainMod+SHIFT, j, togglesplit, # dwindle
 #bind = $mainMod CTRL SHIFT, S, exec, mkdir -p ~/Pictures/Screenshots && grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%s_grim.png')
 bind = $mainMod, PRINT, exec, hyprshot -m window
 # bind = , PRINT, exec, hyprshot -m output
@@ -293,16 +289,9 @@ exec = hyprshade auto
 
 # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
-layerrule = blur, swaync-control-center
-layerrule = ignorezero, swaync-notification-window
-layerrule = animation slide right, swaync-control-center
-layerrule = ignorezero, swaync-control-center
 
-windowrulev2 = float, class:^kitty$
-windowrulev2 = size 70% 70%, class:^kitty$
-windowrulev2 = workspace 1 silent, class:^(kitty)$
+
 exec-once = kitty
 
-windowrulev2 = workspace 8 silent, class:^(thunderbird)$, title:^(Mozilla Thunderbird)$
 exec-once = thunderbird
 
